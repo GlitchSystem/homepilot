@@ -74,5 +74,5 @@ fun HomePilot(initialUrl: String, initialToken: String, save: (String,String)->U
         }
     }
 }
-@Composable private fun EntityCard(e:Entity, click:()->Unit) { Card(Modifier.fillMaxWidth(),onClick=click) { Row(Modifier.padding(16.dp),horizontalArrangement=Arrangement.SpaceBetween) { Column(Modifier.weight(1f)) { Text(e.name,style=MaterialTheme.typography.titleMedium); Text("${e.id} · ${e.state}") }; Text(if(e.state in listOf("on","open","home","playing")) "●" else "○") } } }
+@Composable private fun EntityCard(e:Entity, click:()->Unit) { Card(onClick=click, modifier=Modifier.fillMaxWidth()) { Row(Modifier.padding(16.dp),horizontalArrangement=Arrangement.SpaceBetween) { Column(Modifier.weight(1f)) { Text(e.name,style=MaterialTheme.typography.titleMedium); Text("${e.id} · ${e.state}") }; Text(if(e.state in listOf("on","open","home","playing")) "●" else "○") } } }
 private fun act(url:String,token:String,e:Entity,refresh:()->Unit,scope:kotlinx.coroutines.CoroutineScope) { scope.launch { try { val service=if(e.state=="on") "turn_off" else "turn_on"; val body="{\"entity_id\":\"${e.id}\"}"; request(url,token,"services/${e.domain}/$service","POST",body); refresh() } catch (_:Exception) {} } }
