@@ -2,7 +2,7 @@ name: Build HomePilot APK
 on:
   workflow_dispatch:
   push:
-    paths: ['app/**', '*.gradle.kts', 'gradle.properties']
+    paths: ['app/**', '*.gradle.kts', 'gradle.properties', '.github/workflows/**']
 permissions:
   contents: read
 jobs:
